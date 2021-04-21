@@ -19,7 +19,8 @@ Resources:
       Tags:
       - Key: Name
         Value: Lab VPC
-        
+
+_______________________________
 
   InternetGateway:
     Type: AWS::EC2::InternetGateway
@@ -28,13 +29,16 @@ Resources:
       - Key: Name
         Value: Lab Internet Gateway
 
+_______________________________
+
+
   AttachGateway:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
       VpcId: !Ref VPC
       InternetGatewayId: !Ref InternetGateway
 
-
+_______________________________
 
 
   PublicSubnet1:
@@ -61,7 +65,7 @@ Resources:
         - Key: Name
           Value: Private Subnet 1
 
-
+_______________________________
 
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
@@ -71,6 +75,17 @@ Resources:
         - Key: Name
           Value: Public Route Table
 
+_______________________________
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+_______________________________
+
 
   PublicSubnetRouteTableAssociation1:
     Type: AWS::EC2::SubnetRouteTableAssociation
@@ -78,7 +93,7 @@ Resources:
       SubnetId: !Ref PublicSubnet1
       RouteTableId: !Ref PublicRouteTable
 
-_______________
+_______________________________
 
 Outputs:
   VPC:
@@ -91,17 +106,8 @@ Outputs:
       - PublicSubnet1
       - AvailabilityZone
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+_______________________________
+
 ```
 
 
